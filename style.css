@@ -1,3 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Ga+Maamli&family=Noto+Sans+Mono:wght@500&family=Roboto:wght@300;400;500;700&display=swap');
+
 *{
-    background-color: blue;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.flex{
+    display: flex;
+}
+
+nav{
+    height: 9vw;
+}
+
+a{
+    text-decoration: none;
+}
+
+.nav__container{
+    width: 100%;
+    max-width: 1200px;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+    padding: 0 24px;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    max-height: 50vh;
+}
+
+.logo{
+    width: 15vw;
+}
+
+ul{
+    display: flex;
+}
+
+button, a{
+    cursor: pointer;
+}
+
+button:active{
+    transform: translateY(1px);
+}
+
+li{
+    list-style: none;
+}
+.colored-text{
+    color:#7342d6
+}
+
+#landing{
+    background-color: rgba(115, 66, 214, 0.1);
+}
+
+p{
+    line-height: 1.5;
+}
+
+h1{
+    font-size: 36px;
+    color: #7342d6;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 24px;
+
+}
+
+h3{
+    margin: 16px 0;
+}
+
+/* NAVIGATION */
+.nav__link{
+    margin-left: 16px;
+    font-size: 20px;
+    color: #7342d6;
+    font-weight: bold;
+    padding: 8px;
+
+}
+
+.nav__link--primary{
+    border: 2px solid #7342d6;
+    border-radius: 4px;
+
+}
+
+.nav__link:hover{
+    text-decoration: underline;
+}
+
+.nav__link--primary:hover{
+    text-decoration: none;
+}
+/*  */
+/* HEADER */
+
+header{
+    height: 91vh;
+}
+
+.header__container{
+    width: 100%;
+    max-width:720px;
+    margin: 0 auto;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 32px;
+}
+
+.header__description{
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__img--wrapper{
+    padding: 20px;
+    z-index: 3;
+}
+
+.btn{
+    font-size: 20px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 30px;
+    width:100%;
+    max-width: 200px;
+    background-color: #7342d6;
+    color: white;
+}
+
+
+.container{
+    padding: 56px 0;
+
+}
+
+.row{
+width: 100%;
+max-width: 100%;
+margin: 0 auto;
+}
+
+/* HIGHLIGHT SECTION */
+
+#highlights{
+    position: relative;
+}
+
+.highlight__wrapper{
+    /* margin: 0 16px; */
+    /* position: relative; */
+}
+
+.highlight{
+    padding: 0 24px;
+    width: calc(100% / 3);
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.highlight__img{
+    font-size: 36px;
+    color: #7342d6;
+    margin-bottom: 24px;
+}
+
+.highlight__para{
+    width: 100%;
+    max-width: 300px;
+}
+
+.highlight__wrapper::before, .highlight__wrapper::after{
+    content: "";
+    background: url('assets/wave.svg');
+    z-index: 1;
+    position: absolute;
+    width: 101vw;
+    height: 12vw;
+    left: 0;
+    transform: translateY(-100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.highlight__wrapper::before{
+    top:1px ;
+}
+
+.highlight__wrapper::after{
+    bottom: 1px;
+    rotate: 180deg;
+}
+
+/* FEATURES */
+
+#features{
+    padding-top: 4vw;
+    background-color: rgba(115, 66, 214, 0.1);
+}
+
+.section__title--levitate{
+    z-index: 3;
+    position: sticky;
+}
+
+.books{
+    justify-content: space-around;
+}
+
+.book{
+    text-align: center;
+    width: 20%;
+    padding: 24px;
+}
+
+.book__img--wrapper{
+    margin-bottom: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+}
+
+.book__img{
+    max-height: 200px;
+    transition: all 300ms ease;
+    cursor:zoom-out;
+    /* width: 30%; */
+}
+
+.book:hover .book__img{
+    transform: scale(.93);
+}
+
+.book__price--normal{
+    text-decoration: line-through;
+    color: red;
+}
+
+.book__title{
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.book:hover .book__title{
+    /* cursor: not-allowed; */
+    text-decoration: underline;
+}
+
+.latest-books{
+    flex-wrap: wrap;
+}
+
+.latest-book{
+    margin: 0 4px;
 }
