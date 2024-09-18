@@ -6,7 +6,26 @@ async function renderBooks(filter) {
   
   if (!books) {
     loading.style.display = "flex";
-    books = await getBooks();
+    books = await getBooks()
+
+    books = books.map((e)=>{
+      let book = {
+            id: e.id,
+            title: e.volumeInfo.title,
+            url: e.volumeInfo.imageLinks.smallThumbnail,
+            originalPrice: e.volumeInfo.pageCount,
+            salePrice: Number(e.volumeInfo.publishedDate.slice(0,2)),
+            rating: e.volumeInfo.averageRating,
+            description: e.volumeInfo.description
+      }
+      if (e.volumeInfo.title === "Yoga Journal"){
+        book.url = 'assets/atomic habits.jpg'
+      }
+
+    return book;
+  });
+
+    console.log('BOOKS ---> ', books);
     loading.style.display = "none";
   }
 
@@ -28,7 +47,12 @@ async function renderBooks(filter) {
 
   // PRINTS STAR RAINGS DEPENDING ON NUM TYPE ARGUMENT
   function rate(rating){
-    if ((rating % 1) === 0) {
+    
+    if (!rating){
+      // console.log(!rating, rating);
+      return ``;
+    }
+    else if ((rating % 1) === 0) {
       return `<i class="fas fa-star"></i>`.repeat(rating);
     }else {
       const full_stars = (`<i class="fas fa-star"></i>`.repeat(Math.trunc(rating))) + `<i class="fas fa-star-half-alt"></i>`;
@@ -38,15 +62,14 @@ async function renderBooks(filter) {
 
   let booksHTML = books.map(element => {
   let book = 
-    `<div class="book">
+    `<div class="book" onclick="showBookDetail('${element.id}')">
     <figure class="book__img--wrapper">
-    <img class="book__img" src="${element.url}" alt="">
+    <img class="book__img" style="cursor: pointer;" src="${element.url}" alt="">
     </figure>
     <div class="book__title">
     ${element.title}
     </div>
     <div class="book__ratings">
-    ${element.rating}
     ${rate(element.rating)}
     </div>
     <div class="book__price">`;  
@@ -68,109 +91,28 @@ async function renderBooks(filter) {
     return booksWrapper
 }
 
+// BOOK DETAIL FNC
+function showBookDetail(id){
+  // routes to detail page while perserving id
+  localStorage.setItem("id", id);
+  window.location.href = `${window.location.origin}/detail.html`;
+}
+
+// FILTER FNC
 function filterBooks(event){
   // console.log(event.target)
   renderBooks(event.target.value);
 }
 
-// SEED DATA
-function getBooks() {
-  return new Promise((resolve)=>{
-    setTimeout(()=>{
-      resolve(
-        [
-          {
-            id: 1,
-            title: "Crack the Coding Interview",
-            url: "assets/crack the coding interview.png",
-            originalPrice: 49.95,
-            salePrice: 14.95,
-            rating: 4.5,
-          },
-          {
-            id: 2,
-            title: "Atomic Habits",
-            url: "assets/atomic habits.jpg",
-            originalPrice: 39,
-            salePrice: null,
-            rating: 5,
-          },
-          {
-            id: 3,
-            title: "Deep Work",
-            url: "assets/deep work.jpeg",
-            originalPrice: 29,
-            salePrice: 12,
-            rating: 5,
-          },
-          {
-            id: 4,
-            title: "The 10X Rule",
-            url: "assets/book-1.jpeg",
-            originalPrice: 44,
-            salePrice: 19,
-            rating: 4.5,
-          },
-          {
-            id: 5,
-            title: "Be Obsessed Or Be Average",
-            url: "assets/book-2.jpeg",
-            originalPrice: 32,
-            salePrice: 17,
-            rating: 4,
-          },
-          {
-            id: 6,
-            title: "Rich Dad Poor Dad",
-            url: "assets/book-3.jpeg",
-            originalPrice: 70,
-            salePrice: 12.5,
-            rating: 5,
-          },
-          {
-            id: 7,
-            title: "Cashflow Quadrant",
-            url: "assets/book-4.jpeg",
-            originalPrice: 11,
-            salePrice: 10,
-            rating: 4,
-          },
-          {
-            id: 8,
-            title: "48 Laws of Power",
-            url: "assets/book-5.jpeg",
-            originalPrice: 38,
-            salePrice: 17.95,
-            rating: 4.5,
-          },
-          {
-            id: 9,
-            title: "The 5 Second Rule",
-            url: "assets/book-6.jpeg",
-            originalPrice: 35,
-            salePrice: null,
-            rating: 4,
-          },
-          {
-            id: 10,
-            title: "Your Next Five Moves",
-            url: "assets/book-7.jpg",
-            originalPrice: 40,
-            salePrice: null,
-            rating: 4,
-          },
-          {
-            id: 11,
-            title: "Mastery",
-            url: "assets/book-8.jpeg",
-            originalPrice: 30,
-            salePrice: null,
-            rating: 4.5,
-          },
-        ]
-      )
-    })
-    }, 1000);
+// API 
+async function getBooks() {
+  const url = "https://www.googleapis.com/books/v1/volumes?q=time&printType=magazines&key=AIzaSyDSjsHv3eeR3hki5pXAutjtkhSOJtacScc";
+  const response = await fetch(url);
+  const json = await response.json();
+
+  console.log(json.items);
+  return json.items;
+
 }
 setTimeout(()=>{
   renderBooks();

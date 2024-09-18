@@ -474,6 +474,21 @@ select {
   }
 }
 
+/* 
+
+DETAIL PAGE
+
+*/
+
+.book__details{
+  width: 100%;
+  /* height: 100%; */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* SMALL PHONES, TABLETS, LARGE SMARTPHONES */
 @media (max-width: 768px) {
   .header__description {
